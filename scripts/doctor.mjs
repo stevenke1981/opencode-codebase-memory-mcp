@@ -127,10 +127,9 @@ if (process.platform === "win32") {
     }
   }
   if (hasGitBash) {
-    lines.push("git-bash-opencode-plugin: registered (use bashExec for npm/node on Windows)");
+    lines.push("git-bash-opencode-plugin: registered (bashExec for grep/find/bash scripts)");
   } else {
-    lines.push("WARN: git-bash-opencode-plugin not registered");
-    lines.push("  npm/node scripts fail in PowerShell — install git-bash-opencode-plugin");
+    lines.push("Optional: git-bash-opencode-plugin for Unix shell tools on Windows");
     lines.push("  https://github.com/stevenke1981/git-bash-opencode-plugin");
   }
 }

@@ -249,7 +249,7 @@ async function main() {
   console.log(`Config: ${USER_CONFIG}`);
   console.log("Verify: node scripts/doctor.mjs");
   if (process.platform === "win32") {
-    console.log("Windows: use git-bash-opencode-plugin bashExec for npm — not PowerShell");
+    console.log("Windows: npm/node work in PowerShell; use git-bash-opencode-plugin for grep/find/bash scripts");
   }
   console.log("Tools: index_repository, search_graph, trace_path, get_code_snippet, get_architecture, ...");
 }

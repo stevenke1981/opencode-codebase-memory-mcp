@@ -80,7 +80,7 @@ Tell OpenCode: **"Index this project"** — or the agent calls `index_repository
 | Path contains `Users\eda` | Re-run installer (stale config) |
 | Timeout on first connect | Increase `timeout` in `codebase-memory-mcp.json` (default 60000) |
 | Binary missing | Run installer without `--skip-download` |
-| `npm` fails in PowerShell | Use [git-bash-opencode-plugin](https://github.com/stevenke1981/git-bash-opencode-plugin): `bashExec` for `npm` / `node scripts/…` |
+| Need `grep`/`find`/bash scripts on Windows | Pair with [git-bash-opencode-plugin](https://github.com/stevenke1981/git-bash-opencode-plugin) for Unix shell tools (`npm`/`node` work fine in PowerShell) |
 
 ### License
 
@@ -124,12 +124,14 @@ You have **codebase-memory-mcp** tools for **structural code intelligence**. Pre
 
 One command — do not probe with `ls` first.
 
-**Windows:** do NOT run `npm` or shell scripts in PowerShell. Use `bashExec` from [git-bash-opencode-plugin](https://github.com/stevenke1981/git-bash-opencode-plugin):
+**Windows (PowerShell or bash both OK for node):**
 
-```javascript
-bashExec({ command: "node ~/.config/opencode-codebase-memory-mcp/scripts/install-global.mjs --use-existing" })
-bashExec({ command: "node ~/.config/opencode-codebase-memory-mcp/scripts/doctor.mjs" })
+```powershell
+node $env:USERPROFILE\.config\opencode-codebase-memory-mcp\scripts\install-global.mjs --use-existing
+node $env:USERPROFILE\.config\opencode-codebase-memory-mcp\scripts\doctor.mjs
 ```
+
+For `bash install.sh` or Unix `grep`/`find`, use `bashExec` from [git-bash-opencode-plugin](https://github.com/stevenke1981/git-bash-opencode-plugin).
 
 **macOS / Linux:**
 
@@ -146,7 +148,7 @@ If MCP tools are unavailable, run doctor and tell the user to restart OpenCode.
 3. Call `index_repository` when `list_projects` shows the repo is missing or stale
 4. Do not assume MCP is configured — check tool availability first
 5. Pair with [opencode-git-tools](https://github.com/stevenke1981/git-opencode-plugin) for git workflow
-6. On Windows, pair with [git-bash-opencode-plugin](https://github.com/stevenke1981/git-bash-opencode-plugin) — never use PowerShell for `npm` / Unix commands
+6. On Windows, pair with [git-bash-opencode-plugin](https://github.com/stevenke1981/git-bash-opencode-plugin) for Unix shell tools (`grep`, `find`, `bash` scripts) — `npm`/`node` in PowerShell are fine
 
 ### Upstream tools (14)
 

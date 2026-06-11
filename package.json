@@ -1,6 +1,6 @@
 {
   "name": "opencode-codebase-memory-mcp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "OpenCode installer for DeusData codebase-memory-mcp — fixes MCP registration and global binary path",
   "type": "module",
   "repository": {
