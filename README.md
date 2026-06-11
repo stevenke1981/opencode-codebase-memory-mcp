@@ -55,6 +55,19 @@ bash install.sh
 | `~/.config/opencode/codebase-memory-mcp.json` | Local settings (timeout, path) |
 | `~/.config/opencode/opencode.json(c)` | MCP registration for OpenCode |
 
+### OpenCode loading note
+
+This is an **MCP server**, not an OpenCode plugin. It should be registered under the
+`mcp` section of `opencode.json(c)` with:
+
+- `"type": "local"`
+- `"command": ["pwsh", "-NoProfile", "-Command", "..."]` on Windows
+- a generous timeout (`60000` ms by default)
+
+Do not copy the `mcps/codebase-memory-mcp/tools/*.json` files into
+`~/.config/opencode/plugins/`. They are tool schemas for IDE/harness discovery, not
+plugin entrypoints.
+
 ### Verify
 
 ```bash
@@ -149,6 +162,7 @@ If MCP tools are unavailable, run doctor and tell the user to restart OpenCode.
 4. Do not assume MCP is configured — check tool availability first
 5. Pair with [opencode-git-tools](https://github.com/stevenke1981/git-opencode-plugin) for git workflow
 6. On Windows, pair with [git-bash-opencode-plugin](https://github.com/stevenke1981/git-bash-opencode-plugin) for Unix shell tools (`grep`, `find`, `bash` scripts) — `npm`/`node` in PowerShell are fine
+7. Never register MCP schema JSON files as OpenCode plugins; only the MCP server belongs in `mcp`
 
 ### Upstream tools (14)
 
