@@ -95,6 +95,9 @@ for (const name of ["opencode.jsonc", "opencode.json"]) {
   if (cmd.includes("Users\\eda\\") || cmd.includes("/eda/")) {
     lines.push(`  FIX NEEDED: stale path from another user (eda)`);
   }
+  if (process.platform === "win32" && cmd.includes("~/.config/")) {
+    lines.push(`  FIX NEEDED: OpenCode on Windows does not expand "~" — rerun installer for absolute path`);
+  }
 }
 
 const initOut = await checkMcpInit(binPath);

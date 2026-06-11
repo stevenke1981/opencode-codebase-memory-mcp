@@ -37,12 +37,13 @@ const LEGACY_CANDIDATES = [
 ].filter(Boolean);
 
 function toConfigPath(absPath) {
-  const normalized = absPath.replace(/\\/g, "/");
+  const normalized = path.resolve(absPath).replace(/\\/g, "/");
+  // OpenCode on Windows does not expand "~" in MCP command arrays — use absolute paths.
+  if (process.platform === "win32") {
+    return normalized;
+  }
   if (normalized.startsWith(HOME.replace(/\\/g, "/"))) {
     return `~${normalized.slice(HOME.replace(/\\/g, "/").length)}`;
-  }
-  if (process.platform === "win32" && /^[A-Za-z]:/.test(normalized)) {
-    return `/${normalized[0].toLowerCase()}${normalized.slice(2)}`;
   }
   return normalized;
 }
