@@ -3,7 +3,12 @@
   "mcp": {
     "codebase-memory-mcp": {
       "type": "local",
-      "command": ["C:/Users/steven/.config/opencode-codebase-memory-mcp/bin/codebase-memory-mcp.exe"],
+      "command": [
+        "pwsh",
+        "-NoProfile",
+        "-Command",
+        "& \"$env:USERPROFILE\\.config\\opencode-codebase-memory-mcp\\bin\\codebase-memory-mcp.exe\""
+      ],
       "enabled": true,
       "timeout": 60000
     }

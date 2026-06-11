@@ -20,7 +20,7 @@ Repository: https://github.com/stevenke1981/opencode-codebase-memory-mcp
 | **Legacy MCP format** | Old `{ "command": "...", "args": [] }` instead of OpenCode's `{ "type": "local", "command": ["..."] }` |
 | **Config merge conflict** | Both `opencode.json` and `opencode.jsonc` exist; broken entry in `.jsonc` overrides the good one |
 | **Short timeout** | Default 5s MCP timeout; codebase-memory-mcp needs more time on first connect |
-| **`~` paths on Windows** | OpenCode does not expand `~` in MCP `command` — installer uses absolute `C:/Users/...` paths |
+| **Portable paths** | Windows: `pwsh` + `$env:USERPROFILE`; Linux/macOS: `sh` + `$HOME` (auto-detected at install) |
 
 This installer fixes all of the above.
 

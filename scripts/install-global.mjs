@@ -6,6 +6,7 @@ import path from "node:path";
 import os from "node:os";
 import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
+import { buildPortableMcpCommand, defaultHomeRelative } from "./mcp-command.mjs";
 
 const PROJECT_NAME = "opencode-codebase-memory-mcp";
 const MCP_NAME = "codebase-memory-mcp";
@@ -36,17 +37,7 @@ const LEGACY_CANDIDATES = [
   path.join(GLOBAL_CONFIG, "llama-cpp", BIN_NAME),
 ].filter(Boolean);
 
-function toConfigPath(absPath) {
-  const normalized = path.resolve(absPath).replace(/\\/g, "/");
-  // OpenCode on Windows does not expand "~" in MCP command arrays — use absolute paths.
-  if (process.platform === "win32") {
-    return normalized;
-  }
-  if (normalized.startsWith(HOME.replace(/\\/g, "/"))) {
-    return `~${normalized.slice(HOME.replace(/\\/g, "/").length)}`;
-  }
-  return normalized;
-}
+const MCP_REL_PATH = defaultHomeRelative(PROJECT_NAME, "bin", BIN_NAME);
 
 async function exists(p) {
   try {
@@ -194,7 +185,7 @@ async function registerMcp(binPath, cfg) {
   const mcpName = cfg.mcpName || MCP_NAME;
   const entry = {
     type: "local",
-    command: [toConfigPath(binPath)],
+    command: buildPortableMcpCommand(MCP_REL_PATH),
     enabled: true,
     timeout: cfg.timeout ?? 60000,
   };
@@ -223,6 +214,8 @@ async function registerMcp(binPath, cfg) {
   }
 
   cfg.binaryPath = binPath;
+  cfg.mcpRelativePath = MCP_REL_PATH;
+  cfg.mcpCommand = entry.command;
   await fs.writeFile(USER_CONFIG, JSON.stringify(cfg, null, 2) + "\n", "utf8");
 }
 

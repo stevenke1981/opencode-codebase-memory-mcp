@@ -95,8 +95,14 @@ for (const name of ["opencode.jsonc", "opencode.json"]) {
   if (cmd.includes("Users\\eda\\") || cmd.includes("/eda/")) {
     lines.push(`  FIX NEEDED: stale path from another user (eda)`);
   }
-  if (process.platform === "win32" && cmd.includes("~/.config/")) {
-    lines.push(`  FIX NEEDED: OpenCode on Windows does not expand "~" — rerun installer for absolute path`);
+  if (process.platform === "win32" && (cmd.includes("~/.config/") || /^[A-Za-z]:\/Users\//.test(cmd))) {
+    lines.push(`  FIX NEEDED: use portable pwsh + $env:USERPROFILE — rerun installer`);
+  }
+  if (process.platform !== "win32" && cmd.includes("pwsh")) {
+    lines.push(`  FIX NEEDED: use sh + $HOME on Linux/macOS — rerun installer`);
+  }
+  if (process.platform === "win32" && cmd.includes("$env:USERPROFILE")) {
+    lines.push(`  Portable Windows command: OK`);
   }
 }
 
