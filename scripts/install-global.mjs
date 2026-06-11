@@ -247,7 +247,10 @@ async function main() {
   console.log("\nDone! Restart OpenCode.");
   console.log(`Binary: ${binPath}`);
   console.log(`Config: ${USER_CONFIG}`);
-  console.log("Verify: npm run doctor");
+  console.log("Verify: node scripts/doctor.mjs");
+  if (process.platform === "win32") {
+    console.log("Windows: use git-bash-opencode-plugin bashExec for npm — not PowerShell");
+  }
   console.log("Tools: index_repository, search_graph, trace_path, get_code_snippet, get_architecture, ...");
 }
 

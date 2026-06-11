@@ -114,5 +114,26 @@ if (initOut.includes("codebase-memory-mcp")) {
   lines.push(initOut.slice(0, 300));
 }
 
+if (process.platform === "win32") {
+  let hasGitBash = false;
+  for (const name of ["opencode.jsonc", "opencode.json"]) {
+    const filePath = path.join(OPENCODE_DIR, name);
+    if (!(await exists(filePath))) continue;
+    const config = await readJsonc(filePath);
+    const plugins = Array.isArray(config.plugin) ? config.plugin : [];
+    if (plugins.some((p) => typeof p === "string" && p.includes("git-bash-opencode-plugin"))) {
+      hasGitBash = true;
+      break;
+    }
+  }
+  if (hasGitBash) {
+    lines.push("git-bash-opencode-plugin: registered (use bashExec for npm/node on Windows)");
+  } else {
+    lines.push("WARN: git-bash-opencode-plugin not registered");
+    lines.push("  npm/node scripts fail in PowerShell — install git-bash-opencode-plugin");
+    lines.push("  https://github.com/stevenke1981/git-bash-opencode-plugin");
+  }
+}
+
 lines.push("", "If OpenCode still cannot see tools: restart OpenCode, then run `opencode mcp list`.");
 console.log(lines.join("\n"));

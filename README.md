@@ -80,6 +80,7 @@ Tell OpenCode: **"Index this project"** — or the agent calls `index_repository
 | Path contains `Users\eda` | Re-run installer (stale config) |
 | Timeout on first connect | Increase `timeout` in `codebase-memory-mcp.json` (default 60000) |
 | Binary missing | Run installer without `--skip-download` |
+| `npm` fails in PowerShell | Use [git-bash-opencode-plugin](https://github.com/stevenke1981/git-bash-opencode-plugin): `bashExec` for `npm` / `node scripts/…` |
 
 ### License
 
@@ -121,13 +122,22 @@ You have **codebase-memory-mcp** tools for **structural code intelligence**. Pre
 
 ### Install (agents)
 
-One command — do not probe with `ls` first:
+One command — do not probe with `ls` first.
+
+**Windows:** do NOT run `npm` or shell scripts in PowerShell. Use `bashExec` from [git-bash-opencode-plugin](https://github.com/stevenke1981/git-bash-opencode-plugin):
+
+```javascript
+bashExec({ command: "node ~/.config/opencode-codebase-memory-mcp/scripts/install-global.mjs --use-existing" })
+bashExec({ command: "node ~/.config/opencode-codebase-memory-mcp/scripts/doctor.mjs" })
+```
+
+**macOS / Linux:**
 
 ```bash
 node ~/.config/opencode-codebase-memory-mcp/scripts/install-global.mjs --use-existing
 ```
 
-If MCP tools are unavailable, run `node scripts/doctor.mjs` and tell the user to restart OpenCode.
+If MCP tools are unavailable, run doctor and tell the user to restart OpenCode.
 
 ### Rules
 
@@ -136,6 +146,7 @@ If MCP tools are unavailable, run `node scripts/doctor.mjs` and tell the user to
 3. Call `index_repository` when `list_projects` shows the repo is missing or stale
 4. Do not assume MCP is configured — check tool availability first
 5. Pair with [opencode-git-tools](https://github.com/stevenke1981/git-opencode-plugin) for git workflow
+6. On Windows, pair with [git-bash-opencode-plugin](https://github.com/stevenke1981/git-bash-opencode-plugin) — never use PowerShell for `npm` / Unix commands
 
 ### Upstream tools (14)
 
