@@ -1,0 +1,19 @@
+{
+  "name": "opencode-codebase-memory-mcp",
+  "version": "1.0.0",
+  "description": "OpenCode installer for DeusData codebase-memory-mcp — fixes MCP registration and global binary path",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stevenke1981/opencode-codebase-memory-mcp.git"
+  },
+  "keywords": ["opencode", "mcp", "codebase-memory-mcp", "code-intelligence"],
+  "license": "MIT",
+  "scripts": {
+    "install:global": "node scripts/install-global.mjs",
+    "doctor": "node scripts/doctor.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

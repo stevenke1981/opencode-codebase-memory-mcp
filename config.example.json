@@ -1,0 +1,7 @@
+{
+  "binaryPath": null,
+  "mcpName": "codebase-memory-mcp",
+  "timeout": 60000,
+  "autoDownload": true,
+  "variant": "standard"
+}
